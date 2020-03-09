@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+  DiegoFerBPPOCInfraS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'diegoferbp-myaws-poc-infra-${AWS::Region}'
+
+Outputs:
+  DiegoFerBPPOCInfraS3BucketOutput:
+    Description: 'The POC infra Bucket'
+    Value: !Ref DiegoFerBPPOCInfraS3Bucket
+    Export:
+      Name: 'diegoferbp-myaws-poc-infra-s3-bucket'
