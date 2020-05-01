@@ -5,6 +5,21 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub 'diegoferbp-myaws-poc-infra-${AWS::Region}'
+  DiegoFerDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: key
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: key
+          KeyType: HASH
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+      TableName: diegoferbp-poc-map
 
 Outputs:
   DiegoFerBPPOCInfraS3BucketOutput:
@@ -12,3 +27,7 @@ Outputs:
     Value: !Ref DiegoFerBPPOCInfraS3Bucket
     Export:
       Name: 'diegoferbp-myaws-poc-infra-s3-bucket'
+  DiegoFerDynamoDBTableArn:
+    Value: !GetAtt DiegoFerDynamoDBTable.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-DiegoFerDynamoDBTableArn
